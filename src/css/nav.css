@@ -1,0 +1,9 @@
+div.nav{
+    border: black 2px solid;
+    width: 100%;
+    height: 90px;
+    background-color: rgba(128, 128, 128, 0.61);
+    position: absolute;
+    bottom: 6px;
+    box-sizing: border-box;
+}
