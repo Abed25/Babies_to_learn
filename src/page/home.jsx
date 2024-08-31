@@ -82,13 +82,6 @@ export default function Home() {
       innerName= {Bool ? "Stop" : "Start"}
       click = {()=>{setBool(!Bool)}}
       />
-
-      {/* <DynamicButton 
-      innerName= {"ADD"}
-      click = {handleCounting}
-      /> */}
-      
-
       <div className='nav'>
       <DynamicButton 
       innerName="NUMBERS"
