@@ -2,8 +2,10 @@ import React, {useState,useEffect} from 'react'
 import DisplayContainer from '../components/DisplayContainer'
 import DynamicButton from '../components/DynamicButton'
 import '../css/nav.css'
+import '../css/home.css'
 
 export default function Home() {
+
     const [Varibles, setVaribles] = useState({
       //Bellow attribute give controls over button true - number false -letters
       LearnType: true,
@@ -19,8 +21,7 @@ export default function Home() {
       width: "80px",
       borderRadius: "40px",
       margin: "0 40px",
-      position: "relative",
-      left: "38%"
+      position: "absolute"
   }
     useEffect(()=>{ 
       //Handling counting
@@ -53,10 +54,22 @@ export default function Home() {
         setVaribles({...Varibles,Count: 0, LetterIndex: 0})
 
     },[Bool,Varibles.LetterIndex])
+    //Screen width test
+    const [currentWidth, setCurrentWidth] = useState(0);
+    useEffect(() => {
+      const handleResize = () => {
+        setCurrentWidth(window.innerWidth);
+      };
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []); 
+    
   return (
-    <div>
-      <h1 style={{textAlign: "center"}}>Babies to learn</h1>
-      <h2 style={{textAlign: "center",textDecoration: "underline"}}>{Varibles.LearnType ? "Numbers" : "Letters"}</h2>
+    <div className='interface'>
+      <h1>Babies to learn</h1>
+      <h2>{Varibles.LearnType ? "Numbers" : "Letters"}</h2>
       <DisplayContainer 
       value= {
         Varibles.LearnType 
@@ -74,7 +87,7 @@ export default function Home() {
         borderRadius: "60px",
         border: "solid 4px black",
         position: "relative",
-        left: "46%",
+        left: currentWidth < 700 ? "30%":"46%",
         color: "blue",
         fontSize: "30px",
         fontWeight: "800"
@@ -89,9 +102,14 @@ export default function Home() {
         Varibles.LearnType ? 
         {
           ...commonStyle,
-          border: "red 3px solid"
+          border: "red 3px solid",
+          left: currentWidth < 700 ? "2%" : "38%"
         } 
-        : commonStyle}
+        : {
+          ...commonStyle,
+          left: currentWidth < 700 ? "2%" : "38%"
+        }
+      }
       click={()=>{
         setVaribles({...Varibles,LearnType: true})
         {!Varibles.LearnType ? setBool(false): null}
@@ -103,9 +121,13 @@ export default function Home() {
       style={!Varibles.LearnType ? 
         {
           ...commonStyle,
-          border: "red 3px solid"
+          border: "red 3px solid",
+          left: currentWidth < 700 ? "38%" : "55%"
         } :
-         commonStyle}
+         {...commonStyle,
+          left: currentWidth < 700 ? "38%": "55%"
+         }
+        }
       click={()=>{
         setVaribles({...Varibles,LearnType: false})
         {Varibles.LearnType ? setBool(false): null}
